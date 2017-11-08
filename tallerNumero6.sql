@@ -246,3 +246,6 @@ insert into matricula(nro_matricula, alumno_rut_alumno, year, curso_cod_curso) v
 |                                @info consultas de listados                        |
 |-----------------------------------------------------------------------------------|
 */
+
+-- @point<3>
+select nom_alumno, nom_sexo from sexo, alumno where sexo.cod_sexo = alumno.sexo_cod_sexo;
