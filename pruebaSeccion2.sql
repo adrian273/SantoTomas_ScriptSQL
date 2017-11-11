@@ -78,6 +78,12 @@ select codigo_barco, nombre_capitan from barco, capitan where barco.capitan_rut_
 select nombre_capitan, codigo_barco, origen_viaje from barco, capitan, viajes where barco.capitan_rut_capitan = capitan.rut_capitan and barco.codigo_barco = viajes.codigo_viaje and capitan.rut_capitan = "1";
 
 
+/*
+    |----------------------------------------------------------------------------|
+    |                           @database: tiendaTest;                           |
+    |----------------------------------------------------------------------------|
+*/
 
+insert into proveedor(rut, nombre, apellido_paterno, apellido_meterno) values ("1", "adrian","verdugo", "peña"), ("2", "Catalina", "Nuñez", "Palma"), ("3", "juanito", "perez", "rojas");
 
-
+select codigo_tienda, 
