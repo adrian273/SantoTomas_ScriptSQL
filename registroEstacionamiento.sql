@@ -1,8 +1,8 @@
---------------------------------------------------------
+-- ------------------------------------------------------
 -- @author: Adrian Verdugo
 -- @version: 1.0
 -- @description: Registro de Estacionamientos
---------------------------------------------------------
+-- ------------------------------------------------------
 
 -- -----------------------------------------------------
 -- Table @marcas
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS registroTiempoCarreraAlumno (
   fechaInicioRegistroTiempoCarreraAlumno DATETIME NULL,
   fechaFinalRegistroTiempoCarreraAlumno VARCHAR(45) NULL,
   carreras_idCarrera INT NOT NULL,
-  alumnos_rutAlumno INT NOT NULL,
+  alumnos_rutAlumno VARCHAR(15) NOT NULL,
   PRIMARY KEY (idRegistroTiempoCarreraAlumno, carreras_idCarrera, alumnos_rutAlumno),
   INDEX fk_registroTiempoCarreraAlumno_carreras1_idx (carreras_idCarrera ASC),
   INDEX fk_registroTiempoCarreraAlumno_alumnos1_idx (alumnos_rutAlumno ASC),
