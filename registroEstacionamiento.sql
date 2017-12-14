@@ -95,29 +95,26 @@ CREATE TABLE IF NOT EXISTS sedes (
     REFERENCES comunas (idComuna)
 );
 
-
 -- -----------------------------------------------------
 -- Table @sectores
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS sectores (
   idSector INT NOT NULL,
   nombreSector VARCHAR(45) NOT NULL,
-  PRIMARY KEY (idSector))
-
-
+  PRIMARY KEY (idSector)
+);
 
 -- -----------------------------------------------------
--- Table facultades
+-- Table @facultades
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS facultades (
   idFacultad INT NOT NULL,
   nombreFacultad VARCHAR(45) NULL,
-  PRIMARY KEY (idFacultad))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (idFacultad)
+);
 
 -- -----------------------------------------------------
--- Table estacionamientos
+-- Table @estacionamientos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS estacionamientos (
   idEstacionamiento INT NOT NULL,
@@ -132,44 +129,35 @@ CREATE TABLE IF NOT EXISTS estacionamientos (
   INDEX fk_estacionamientos_facultades1_idx (facultades_idFacultad ASC),
   CONSTRAINT fk_estacionamientos_sectores
     FOREIGN KEY (sectores_idSector)
-    REFERENCES sectores (idSector)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES sectores (idSector),
   CONSTRAINT fk_estacionamientos_sedes1
     FOREIGN KEY (sedes_idSede)
-    REFERENCES sedes (idSede)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES sedes (idSede),
   CONSTRAINT fk_estacionamientos_facultades1
     FOREIGN KEY (facultades_idFacultad)
     REFERENCES facultades (idFacultad)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table estadoUno
+-- Table @estadoUno
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS estadoUno (
   idEstadoUno INT NOT NULL,
   descripcionEstadoUno VARCHAR(45) NOT NULL,
-  PRIMARY KEY (idEstadoUno))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (idEstadoUno)
+);
 
 -- -----------------------------------------------------
--- Table estadoDos
+-- Table @estadoDos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS estadoDos (
   idEstadoDos INT NOT NULL,
   descripcionEstadoDos VARCHAR(45) NULL,
-  PRIMARY KEY (idEstadoDos))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (idEstadoDos)
+);
 
 -- -----------------------------------------------------
--- Table cupos
+-- Table @cupos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS cupos (
   idCupo INT NOT NULL,
@@ -182,24 +170,17 @@ CREATE TABLE IF NOT EXISTS cupos (
   INDEX fk_cupos_estacionamientos1_idx (estacionamientos_idEstacionamiento ASC),
   CONSTRAINT fk_cupos_estadoUno1
     FOREIGN KEY (estadoUno_idEstadoUno)
-    REFERENCES estadoUno (idEstadoUno)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES estadoUno (idEstadoUno),
   CONSTRAINT fk_cupos_estadoDos1
     FOREIGN KEY (estadoDos_idEstadoDos)
-    REFERENCES estadoDos (idEstadoDos)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES estadoDos (idEstadoDos),
   CONSTRAINT fk_cupos_estacionamientos1
     FOREIGN KEY (estacionamientos_idEstacionamiento)
     REFERENCES estacionamientos (idEstacionamiento)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table registro
+-- Table @registro
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS registro (
   idRegistro INT NOT NULL,
@@ -213,19 +194,14 @@ CREATE TABLE IF NOT EXISTS registro (
   INDEX fk_registro_vehiculos1_idx (vehiculos_patenteVehiculo ASC),
   CONSTRAINT fk_registro_cupos1
     FOREIGN KEY (cupos_idCupo)
-    REFERENCES cupos (idCupo)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES cupos (idCupo),
   CONSTRAINT fk_registro_vehiculos1
     FOREIGN KEY (vehiculos_patenteVehiculo)
     REFERENCES vehiculos (patenteVehiculo)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table departamentos
+-- Table @departamentos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS departamentos (
   idDepartamento INT NOT NULL,
@@ -237,13 +213,10 @@ CREATE TABLE IF NOT EXISTS departamentos (
   CONSTRAINT fk_departamentos_facultades1
     FOREIGN KEY (facultades_idFacultad)
     REFERENCES facultades (idFacultad)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table carreras
+-- Table @carreras
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS carreras (
   idCarrera INT NOT NULL,
@@ -255,13 +228,10 @@ CREATE TABLE IF NOT EXISTS carreras (
   CONSTRAINT fk_carreras_facultades1
     FOREIGN KEY (facultades_idFacultad)
     REFERENCES facultades (idFacultad)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table alumnos
+-- Table @alumnos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS alumnos (
   rutAlumno VARCHAR(15) NOT NULL,
@@ -270,12 +240,11 @@ CREATE TABLE IF NOT EXISTS alumnos (
   apellidoMaternoAlumno VARCHAR(45) NOT NULL,
   telefonoAlumno INT NOT NULL,
   emailAlumno VARCHAR(100) NOT NULL,
-  PRIMARY KEY (rutAlumno))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (rutAlumno)
+);
 
 -- -----------------------------------------------------
--- Table registroTiempoCarreraAlumno
+-- Table @registroTiempoCarreraAlumno
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS registroTiempoCarreraAlumno (
   idRegistroTiempoCarreraAlumno INT NOT NULL,
@@ -288,19 +257,14 @@ CREATE TABLE IF NOT EXISTS registroTiempoCarreraAlumno (
   INDEX fk_registroTiempoCarreraAlumno_alumnos1_idx (alumnos_rutAlumno ASC),
   CONSTRAINT fk_registroTiempoCarreraAlumno_carreras1
     FOREIGN KEY (carreras_idCarrera)
-    REFERENCES carreras (idCarrera)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES carreras (idCarrera),
   CONSTRAINT fk_registroTiempoCarreraAlumno_alumnos1
     FOREIGN KEY (alumnos_rutAlumno)
     REFERENCES alumnos (rutAlumno)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table visitas
+-- Table @visitas
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS visitas (
   rutVisita VARCHAR(15) NOT NULL,
@@ -310,22 +274,20 @@ CREATE TABLE IF NOT EXISTS visitas (
   telefonoVisita INT NULL,
   emailVisita VARCHAR(100) NULL,
   propositoVisita TEXT NULL,
-  PRIMARY KEY (rutVisita))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (rutVisita)
+);
 
 -- -----------------------------------------------------
--- Table tipoTrabajador
+-- Table @tipoTrabajador
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS tipoTrabajador (
   idTipoTrabajador INT NOT NULL,
   descripcionTipoTrabajador VARCHAR(45) NOT NULL,
-  PRIMARY KEY (idTipoTrabajador))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (idTipoTrabajador)
+);
 
 -- -----------------------------------------------------
--- Table trabajadores
+-- Table @trabajadores
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS trabajadores (
   rutTrabajador VARCHAR(15) NOT NULL,
@@ -340,13 +302,10 @@ CREATE TABLE IF NOT EXISTS trabajadores (
   CONSTRAINT fk_trabajadores_tipoTrabajador1
     FOREIGN KEY (tipoTrabajador_idTipoTrabajador)
     REFERENCES tipoTrabajador (idTipoTrabajador)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table vehiculos_has_alumnos
+-- Table @vehiculos_has_alumnos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS vehiculos_has_alumnos (
   alumnos_rutAlumno VARCHAR(15) NOT NULL,
@@ -356,19 +315,14 @@ CREATE TABLE IF NOT EXISTS vehiculos_has_alumnos (
   INDEX fk_vehiculos_has_alumnos_vehiculos1_idx (vehiculos_patenteVehiculo ASC),
   CONSTRAINT fk_vehiculos_has_alumnos_alumnos1
     FOREIGN KEY (alumnos_rutAlumno)
-    REFERENCES alumnos (rutAlumno)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES alumnos (rutAlumno),
   CONSTRAINT fk_vehiculos_has_alumnos_vehiculos1
     FOREIGN KEY (vehiculos_patenteVehiculo)
     REFERENCES vehiculos (patenteVehiculo)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table vehiculos_has_trabajadores
+-- Table @vehiculos_has_trabajadores
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS vehiculos_has_trabajadores (
   trabajadores_rutTrabajador VARCHAR(15) NOT NULL,
@@ -378,19 +332,14 @@ CREATE TABLE IF NOT EXISTS vehiculos_has_trabajadores (
   INDEX fk_vehiculos_has_trabajadores_vehiculos1_idx (vehiculos_patenteVehiculo ASC),
   CONSTRAINT fk_vehiculos_has_trabajadores_trabajadores1
     FOREIGN KEY (trabajadores_rutTrabajador)
-    REFERENCES trabajadores (rutTrabajador)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES trabajadores (rutTrabajador),
   CONSTRAINT fk_vehiculos_has_trabajadores_vehiculos1
     FOREIGN KEY (vehiculos_patenteVehiculo)
     REFERENCES vehiculos (patenteVehiculo)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table modelos
+-- Table @modelos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS modelos (
   idModelo INT NOT NULL,
@@ -401,23 +350,19 @@ CREATE TABLE IF NOT EXISTS modelos (
   CONSTRAINT fk_modelos_marcas1
     FOREIGN KEY (marcas_idMarca)
     REFERENCES marcas (idMarca)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table colores
+-- Table @colores
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS colores (
   idColor INT NOT NULL,
   nombreColor VARCHAR(45) NOT NULL,
-  PRIMARY KEY (idColor))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (idColor)
+);
 
 -- -----------------------------------------------------
--- Table colores_has_modelos
+-- Table @colores_has_modelos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS colores_has_modelos (
   colores_idColor INT NOT NULL,
@@ -427,19 +372,14 @@ CREATE TABLE IF NOT EXISTS colores_has_modelos (
   INDEX fk_colores_has_modelos_colores1_idx (colores_idColor ASC),
   CONSTRAINT fk_colores_has_modelos_colores1
     FOREIGN KEY (colores_idColor)
-    REFERENCES colores (idColor)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES colores (idColor),
   CONSTRAINT fk_colores_has_modelos_modelos1
     FOREIGN KEY (modelos_idModelo)
     REFERENCES modelos (idModelo)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table registroVisitas
+-- Table @registroVisitas
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS registroVisitas (
   idRegistroVisitas INT NOT NULL,
@@ -454,12 +394,10 @@ CREATE TABLE IF NOT EXISTS registroVisitas (
   CONSTRAINT fk_registroVisitas_registro1
     FOREIGN KEY (registro_idRegistro)
     REFERENCES registro (idRegistro)
-  )
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
--- Table registroAlumnos
+-- Table @registroAlumnos
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS registroAlumnos (
   idRegistroAlumno INT NOT NULL,
@@ -470,16 +408,11 @@ CREATE TABLE IF NOT EXISTS registroAlumnos (
   INDEX fk_registroAlumnos_registro1_idx (registro_idRegistro ASC),
   CONSTRAINT fk_registroAlumnos_alumnos1
     FOREIGN KEY (alumnos_rutAlumno)
-    REFERENCES alumnos (rutAlumno)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES alumnos (rutAlumno),
   CONSTRAINT fk_registroAlumnos_registro1
     FOREIGN KEY (registro_idRegistro)
     REFERENCES registro (idRegistro)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+);
 
 -- -----------------------------------------------------
 -- Table @trabajadorRegistros
