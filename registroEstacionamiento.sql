@@ -350,9 +350,20 @@ CREATE TABLE IF NOT EXISTS trabajadores (
     REFERENCES tipoTrabajador (idTipoTrabajador)
 );
 
+-- ------------------------------------------------------
+-- @info nuevas columnas agregadas en la tabla trabajadores (sexo, rango etario)
+-- @since: 15-12-2017
+-- ------------------------------------------------------
+ALTER TABLE trabajadores ADD COLUMN sexos_idSexo CHAR(1) NOT NULL;
+ALTER TABLE trabajadores ADD COLUMN rangosEtarios_idRangoEtario INT NOT NULL;
+
+-- Reference table @sexos
+ALTER TABLE trabajadores ADD CONSTRAINT fk_sexos_idSexo_trabajadores FOREIGN KEY (sexos_idSexo) REFERENCES sexos(idSexo);
+-- Reference table @rangosEtarios
+ALTER TABLE trabajadores ADD CONSTRAINT fk_rangosEtarios_idRangoEtario_trabajadores FOREIGN KEY (rangosEtarios_idRangoEtario) REFERENCES rangosEtarios (idRangoEtario);
+
 -- -------------------------------------------------------------
 -- @info: nuevas referencias (FK) en la tabla trabajadores Y modificacion en la tabla
--- @since: 15-12-2017
 -- -------------------------------------------------------------
 ALTER TABLE trabajadores ADD COLUMN afps_idAfp INT NOT NULL;
 ALTER TABLE trabajadores ADD COLUMN sistemasDeSalud_idSistemaDeSalud INT NOT NULL;
@@ -491,9 +502,24 @@ CREATE TABLE IF NOT EXISTS trabajadorRegistros (
 
 -- ---------------------------------------------------------
 -- @insert
+-- Table @sexos
+-- ---------------------------------------------------------
+INSERT INTO sexos (idSexo, nombreSexo) VALUES ('f', 'femenino');
+INSERT INTO sexos (idSexo, nombreSexo) VALUES ('m', 'masculino');
+
+-- ---------------------------------------------------------
+-- @insert
+-- Table @rangosEtarios
+-- ---------------------------------------------------------
+INSERT INTO rangosEtarios (idRangoEtario, rangoEtario) VALUES ('1', '1-10');
+INSERT INTO rangosEtarios (idRangoEtario, rangoEtario) VALUES ('2', '11-20');
+INSERT INTO rangosEtarios (idRangoEtario, rangoEtario) VALUES ('3', '21-30');
+
+-- ---------------------------------------------------------
+-- @insert
 -- Table @alumnos
 -- ---------------------------------------------------------
-INSERT INTO alumnos (rutAlumno, nombresAlumno, apellidoPaternoAlumno, apellidoMaternoAlumno, telefonoAlumno, emailAlumno) VALUES ('191111112', 'catalina nicole', 'n', 'p', '55555555', 'cata@gmail.com'
+INSERT INTO alumnos (rutAlumno, nombresAlumno, apellidoPaternoAlumno, apellidoMaternoAlumno, telefonoAlumno, emailAlumno) VALUES ('191111112', 'catalina nicole', 'n', 'p', '55555555', 'cata@gmail.com', 'f', 2
 );
 
 -- ------------------------------------------------------------
