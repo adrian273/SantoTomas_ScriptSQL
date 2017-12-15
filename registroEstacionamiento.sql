@@ -230,6 +230,23 @@ CREATE TABLE IF NOT EXISTS carreras (
     REFERENCES facultades (idFacultad)
 );
 
+--  -----------------------------------------------------
+--  @info: nuevas tablas agregadas
+--  Tables: @sexos - @rangosEtarios
+--  @since: 15-12-2017
+-- -------------------------------------------------------
+CREATE TABLE IF NOT EXISTS sexos (
+  idSexo CHAR(1) not null,
+  nombreSexo VARCHAR(45),
+  PRIMARY KEY(idSexo)
+);
+
+CREATE TABLE IF NOT EXISTS rangosEtarios (
+  idRangoEtario INT NOT NULL,
+  rangoEtario VARCHAR(45) NOT NULL,
+  PRIMARY KEY(idRangoEtario)
+);
+
 -- -----------------------------------------------------
 -- Table @alumnos
 -- -----------------------------------------------------
@@ -242,6 +259,17 @@ CREATE TABLE IF NOT EXISTS alumnos (
   emailAlumno VARCHAR(100) NOT NULL,
   PRIMARY KEY (rutAlumno)
 );
+
+-- ------------------------------------------------------
+-- @info nuevas columnas agregadas en la tabla alumno (sexo, rango etario)
+-- ------------------------------------------------------
+ALTER TABLE alumnos ADD COLUMN sexos_idSexo CHAR(1) NOT NULL;
+ALTER TABLE alumnos ADD COLUMN rangosEtarios_idRangoEtario INT NOT NULL;
+
+-- Reference table @sexos
+ALTER TABLE alumnos ADD CONSTRAINT fk_sexos_idSexo FOREIGN KEY (sexos_idSexo) REFERENCES sexos(idSexo);
+-- Reference table @rangosEtarios
+ALTER TABLE alumnos ADD CONSTRAINT fk_rangosEtarios_idRangoEtario FOREIGN KEY (rangosEtarios_idRangoEtario) REFERENCES rangosEtarios (idRangoEtario);
 
 -- -----------------------------------------------------
 -- Table @registroTiempoCarreraAlumno
@@ -277,6 +305,23 @@ CREATE TABLE IF NOT EXISTS visitas (
   PRIMARY KEY (rutVisita)
 );
 
+--  -----------------------------------------------------
+--  @info: nuevas tablas agregadas
+--  Tables: @afps - @sistemasDeSalud
+--  @since: 15-12-2017
+-- -------------------------------------------------------
+CREATE TABLE IF NOT EXISTS afps (
+  idAfp INT not null,
+  nombreAfp VARCHAR(45) not null,
+  PRIMARY KEY(idAfp)
+);
+
+CREATE TABLE IF NOT EXISTS sistemasDeSalud (
+  idSistemaSalud INT NOT NULL,
+  nombreSistemaSalud VARCHAR(45) NOT NULL,
+  PRIMARY KEY(idSistemaSalud)
+);
+
 -- -----------------------------------------------------
 -- Table @tipoTrabajador
 -- -----------------------------------------------------
@@ -288,6 +333,7 @@ CREATE TABLE IF NOT EXISTS tipoTrabajador (
 
 -- -----------------------------------------------------
 -- Table @trabajadores
+-- @Info: Tabla de los trabajadores de la institucion
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS trabajadores (
   rutTrabajador VARCHAR(15) NOT NULL,
@@ -303,6 +349,18 @@ CREATE TABLE IF NOT EXISTS trabajadores (
     FOREIGN KEY (tipoTrabajador_idTipoTrabajador)
     REFERENCES tipoTrabajador (idTipoTrabajador)
 );
+
+-- -------------------------------------------------------------
+-- @info: nuevas referencias (FK) en la tabla trabajadores Y modificacion en la tabla
+-- @since: 15-12-2017
+-- -------------------------------------------------------------
+ALTER TABLE trabajadores ADD COLUMN afps_idAfp INT NOT NULL;
+ALTER TABLE trabajadores ADD COLUMN sistemasDeSalud_idSistemaDeSalud INT NOT NULL;
+
+-- Reference table @afps
+ALTER TABLE trabajadores ADD CONSTRAINT fk_afps_idAfp FOREIGN KEY (afps_idAfp) REFERENCES afps(idAfp);
+-- Reference table @sistemasDeSalud
+ALTER TABLE trabajadores ADD CONSTRAINT fk_sistemasDeSalud_idSistemaDeSalud FOREIGN KEY (sistemasDeSalud_idSistemaDeSalud) REFERENCES sistemasDeSalud(idSistemaSalud);
 
 -- -----------------------------------------------------
 -- Table @vehiculos_has_alumnos
@@ -430,3 +488,46 @@ CREATE TABLE IF NOT EXISTS trabajadorRegistros (
     FOREIGN KEY (registro_idRegistro)
     REFERENCES registro (idRegistro)
 );
+
+-- ---------------------------------------------------------
+-- @insert
+-- Table @alumnos
+-- ---------------------------------------------------------
+INSERT INTO alumnos (rutAlumno, nombresAlumno, apellidoPaternoAlumno, apellidoMaternoAlumno, telefonoAlumno, emailAlumno) VALUES ('191111112', 'catalina nicole', 'n', 'p', '55555555', 'cata@gmail.com'
+);
+
+-- ------------------------------------------------------------
+-- @insert
+-- Table @facultad
+-- ------------------------------------------------------------
+INSERT INTO facultades (idFacultad, nombreFacultad) VALUES ('1', 'informatica');
+
+-- ------------------------------------------------------------
+-- @insert
+-- Table @carreras
+-- ------------------------------------------------------------
+INSERT INTO carreras (idCarrera, nombreCarrera, descripcionCarrera, facultades_idFacultad) VALUES ('1', 'programacion computacional', 'desarrollo de software', '1');
+
+-- ------------------------------------------------------------
+-- @insert
+-- Table @registroTiempoCarreraAlumno
+-- ------------------------------------------------------------
+INSERT INTO registroTiempoCarreraAlumno (idRegistroTiempoCarreraAlumno, fechaInicioRegistroTiempoCarreraAlumno, fechaFinalRegistroTiempoCarreraAlumno, carreras_idCarrera, alumnos_rutAlumno) VALUES ('1', '2017-12-14 16:31:36', '2018-12-14 16:31:36', '1', '188915051');
+
+-- --------------------------------------------------------------
+-- @insert
+-- Table @regiones
+-- --------------------------------------------------------------
+INSERT INTO regiones (idRegion, nombreRegion) VALUES ('7', 'Maule');
+
+-- --------------------------------------------------------------
+-- @insert
+-- Table @provincias
+-- --------------------------------------------------------------
+INSERT INTO provincias (idProvincia, nombreProvincia, regiones_idRegion) VALUES ('1', 'Talca', '7');
+
+-- --------------------------------------------------------------
+-- @insert
+-- Table @comunas
+-- --------------------------------------------------------------
+INSERT INTO comunas (idComuna, comunascol, provincias_idProvincia) VALUES ('1', 'Maule', '1');
