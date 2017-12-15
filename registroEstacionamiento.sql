@@ -519,9 +519,11 @@ INSERT INTO rangosEtarios (idRangoEtario, rangoEtario) VALUES ('3', '21-30');
 -- @insert
 -- Table @alumnos
 -- ---------------------------------------------------------
-INSERT INTO alumnos (rutAlumno, nombresAlumno, apellidoPaternoAlumno, apellidoMaternoAlumno, telefonoAlumno, emailAlumno) VALUES ('191111112', 'catalina nicole', 'n', 'p', '55555555', 'cata@gmail.com', 'f', 2
+INSERT INTO alumnos (rutAlumno, nombresAlumno, apellidoPaternoAlumno, apellidoMaternoAlumno, telefonoAlumno, emailAlumno, sexos_idSexo, rangosEtarios_idRangoEtario) VALUES ('191111112', 'catalina', 'n', 'p', '55555555', 'cata@gmail.com', 'f', 2
 );
 
+INSERT INTO alumnos (rutAlumno, nombresAlumno, apellidoPaternoAlumno, apellidoMaternoAlumno, telefonoAlumno, emailAlumno, sexos_idSexo, rangosEtarios_idRangoEtario) VALUES ('188915051', 'adrian', 'v', 'p', '1888961', 'adrian@gmail.com', 'm', 3
+);
 -- ------------------------------------------------------------
 -- @insert
 -- Table @facultad
