@@ -559,3 +559,18 @@ INSERT INTO provincias (idProvincia, nombreProvincia, regiones_idRegion) VALUES 
 -- Table @comunas
 -- --------------------------------------------------------------
 INSERT INTO comunas (idComuna, comunascol, provincias_idProvincia) VALUES ('1', 'Maule', '1');
+
+-- @insert trabajador
+INSERT INTO tipoTrabajador (idTipoTrabajador, descripcionTipoTrabajador) VALUES ('1', 'docente');
+INSERT INTO tipoTrabajador (idTipoTrabajador, descripcionTipoTrabajador) VALUES ('2', 'funcionario');
+
+INSERT INTO afps (idAfp, nombreAfp) VALUES ('1', 'MODELO');
+INSERT INTO sistemasDeSalud (idSistemaSalud, nombreSistemaSalud) VALUES ('1', 'a');
+
+INSERT INTO trabajadores (rutTrabajador, nombresTrabajador, apellidoPaternoTrabajador, apellidoMaternoTrabajador, telefonoTrabajador, emailTrabajador, tipoTrabajador_idTipoTrabajador, afps_idAfp, sistemasDeSalud_idSistemaDeSalud, sexos_idSexo, rangosEtarios_idRangoEtario) VALUES ('12', 'juanito', 'peres', 'ROJAS', '121', 'jua@tets.cl', '1', '1', '1', 'M', '2');
+
+INSERT INTO trabajadores (rutTrabajador, nombresTrabajador, apellidoPaternoTrabajador, apellidoMaternoTrabajador, telefonoTrabajador, emailTrabajador, tipoTrabajador_idTipoTrabajador, afps_idAfp, sistemasDeSalud_idSistemaDeSalud, sexos_idSexo, rangosEtarios_idRangoEtario) VALUES ('13', 'andes', 'klaa', 'aaaa', '12', 'asd@aaa.cl', '2', '1', '1', 'M', '2');
+
+INSERT INTO redesSocialesTrabajadores (redSocialFacebook, redSocialTwiter, trabajadores_rutTrabajador) VALUES ('ggds', 'twe', '12');
+
+INSERT INTO redesSocialesTrabajadores (redSocialFacebook, redSocialTwiter, trabajadores_rutTrabajador) VALUES ('etsew', 'ete', '13');
