@@ -69,10 +69,36 @@ insert into materiaPrima(idMateriaPrima, nombreMateriaPrima, agua, proteina, sod
 insert into materiaPrima(idMateriaPrima, nombreMateriaPrima, agua, proteina, sodio, vitamina, tipo_idTipo)
     values ('mp8', 'lino', 16, 36, 75, 55, 2);
 
+/**
+* TODO
+* 4. Borrar la materia prima carnica que tiene menor %Agua
+*/
 declare
-    cursor dataAgua is select min(agua) as minAgua, idMateriaPrima from materiaPrima where tipo_idTipo = 1;
+    cursor mAgua is
+    select nombreMateriaPrima, idMateriaPrima from materiaPrima 
+    where agua = (select min(agua) from materiaPrima where tipo_idTipo = 1);
+    ident char(3);
 begin 
-    for d in dataAgua loop
-        dbms_output.put_line(d.minAgua);
+    for m in mAgua loop
+        dbms_output.put_line('nombre de la menor cantidad de agua: ' || m.nombreMateriaPrima || ' <> identificador: ' || m.idMateriaPrima);
+        ident := m.idMateriaPrima;
+    end loop;
+    dbms_output.put_line('identificador: ' || ident);
+    delete from materiaPrima where idMateriaPrima = ident;
+end;
+
+/**
+* TODO
+* 5. Recorrer cursor de vista y actualizar a 3% aquellas materias primas que tengan 1% de sodio
+**/
+declare
+    cursor aSodio is select * from dataCarnico order by idMateriaPrima asc;
+begin 
+    for a in aSodio loop
+        if a.sodio = 1 then
+            dbms_output.put_line(a.nombreMateriaPrima || '->' || a.sodio);
+            update materiaPrima set sodio = 3 where a.idMateriaPrima = idMateriaPrima;
+        end if;
     end loop;
 end;
+
