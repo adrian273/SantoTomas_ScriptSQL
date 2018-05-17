@@ -69,7 +69,7 @@ end;
 * 7. Actualizar la tabla agredando un nuevo campo edad de tipo number, el cual debe ser actualizado
 * recorriendo en un cursor la tabla y dejando la edad de la persona al dia de hoy
 */
- alter table abh_datos add (edad number null);
+alter table abh_datos add (edad number null);
 declare
     cursor tablaDatos is select * from abh_datos;
 begin
